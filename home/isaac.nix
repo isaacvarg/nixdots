@@ -11,6 +11,7 @@
     ../modules/home/mise.nix
     ../modules/home/git.nix
     ../modules/home/gh.nix
+    ../modules/home/ai.nix
 	];
 
 	home.username = "isaac";

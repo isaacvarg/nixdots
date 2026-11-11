@@ -12,6 +12,7 @@
       ./modules/nixos/1password.nix
       ./modules/nixos/nix-ld.nix
       ./modules/nixos/docker.nix
+      ./modules/nixos/llm-cache.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
