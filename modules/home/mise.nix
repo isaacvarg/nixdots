@@ -1,11 +1,19 @@
-{ ... };
+{ ... }:
 
 {
+  programs.bash.enable = true;
+
   programs.mise = {
-      enable = true;
+    enable = true;
+    enableBashIntegration = true;
 
-      enableBashIntegration = true;
+    mutableSettings = true;
 
-      mutableSettings = true;
+    globalConfig = {
+      settings = {
+        experimental = true;
+        all_compile = false;
+      };
     };
-} 
+  };
+}

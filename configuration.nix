@@ -11,6 +11,7 @@
       ./modules/nixos/hyprland.nix
       ./modules/nixos/1password.nix
       ./modules/nixos/nix-ld.nix
+      ./modules/nixos/docker.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
