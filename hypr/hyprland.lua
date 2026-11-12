@@ -17,10 +17,9 @@ hl.config({
 -- programs
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + M", hl.dsp.exit())
-
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("hyprlauncher"))
 
 -- window manipulation
-
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))

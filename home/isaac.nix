@@ -27,5 +27,6 @@
 		bat
 		fd
     lazygit
+    hyprlauncher
 	];
 }
