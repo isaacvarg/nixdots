@@ -36,6 +36,8 @@
     variant = "";
   };
 
+  programs.fish.enable = true;
+
   users.users."isaac" = {
     isNormalUser = true;
     description = "isaac";
