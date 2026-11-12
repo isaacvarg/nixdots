@@ -7,4 +7,8 @@
     ../../modules/nixos/1password.nix
     ../../modules/nixos/llm-cache.nix
   ];
+
+  networking.firewall.allowedTCPPorts = [
+    3000
+  ];
 }
