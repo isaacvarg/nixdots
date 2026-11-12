@@ -34,11 +34,13 @@
     llm-agents,
     ... 
     }: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+    # oolong system == work computer
+    nixosConfigurations.oolong = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules = [
-        ./configuration.nix
+        ./systems/oolong
 
         home-manager.nixosModules.home-manager
 
@@ -49,7 +51,14 @@
 		        inherit lazyvim llm-agents;
 	        };
 
-          home-manager.users.isaac = import ./home/isaac.nix;
+          home-manager.users.isaac = {
+            imports = [
+              ./users/isaac.nix
+              ./bundles/home/common.nix
+              ./bundles/home/desktop.nix
+              ./bundles/home/development.nix
+            ];
+          };
         }
       ];
     };
