@@ -7,6 +7,7 @@ in
 {
   home.packages = [
     agents.claude-desktop
+    agents.claude-code
     agents.codex
   ];
 }
