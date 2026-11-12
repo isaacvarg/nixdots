@@ -9,6 +9,6 @@ in
     agents.claude-desktop
     agents.claude-code
     agents.codex
-    agents.chatgtp
+    agents.chatgpt
   ];
 }
