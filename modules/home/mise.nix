@@ -6,6 +6,7 @@
   programs.mise = {
     enable = true;
     enableBashIntegration = true;
+    enableFishIntegration = true;
 
     mutableSettings = true;
 

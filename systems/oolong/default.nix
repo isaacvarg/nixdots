@@ -40,6 +40,7 @@
     isNormalUser = true;
     description = "isaac";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.fish;
     packages = with pkgs; [];
   };
 
