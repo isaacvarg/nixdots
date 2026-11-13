@@ -6,5 +6,6 @@
     ../../modules/nixos/localsend.nix
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/keyring.nix
+    ../../modules/nixos/greeter.nix
   ];
 }
