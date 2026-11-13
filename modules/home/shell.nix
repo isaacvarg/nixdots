@@ -13,7 +13,7 @@
         # ~/.nixdots#system
         nrs = "sudo nixos-rebuild switch --flake ~/.nixdots";
         # i swear im not that lazy its muscle memory
-        lazygit = "lazygit";
+        lg = "lazygit";
     };
 
     shellAliases = {
