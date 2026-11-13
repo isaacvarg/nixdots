@@ -8,11 +8,17 @@
     '';
 
     shellAbbrs = {
-        nro = "sudo nixos-rebuild switch --flake ~/.nixdots#oolong";
+        # this works because our host match
+        # the config names so we can ommit the
+        # ~/.nixdots#system
+        nrs = "sudo nixos-rebuild switch --flake ~/.nixdots";
+        # i swear im not that lazy its muscle memory
+        lazygit = "lazygit";
     };
 
     shellAliases = {
       ll = "ls -la";
+      ff = "clear & fastfetch";
     };
   };
 
