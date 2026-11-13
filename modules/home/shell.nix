@@ -18,4 +18,10 @@
 
   # bash as a fallback
   programs.bash.enable = true;
+  
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+  };
 }
