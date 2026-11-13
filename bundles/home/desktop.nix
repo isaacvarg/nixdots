@@ -6,5 +6,6 @@
 		../../modules/home/terminal.nix
 		../../modules/home/browser.nix
 		../../modules/home/polkit.nix
+    ../../modules/home/quickshell/quickshell.nix
 	];
 }
