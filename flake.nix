@@ -35,6 +35,35 @@
     ... 
     }: {
 
+    # latte system == home computer
+    nixosConfigurations.latte = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      modules = [
+        ./systems/latte
+
+        home-manager.nixosModules.home-manager
+
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+	        home-manager.extraSpecialArgs = {
+		        inherit lazyvim llm-agents;
+	        };
+
+          home-manager.users.isaac = {
+            imports = [
+              ./users/isaac.nix
+              ./bundles/home/common.nix
+              ./bundles/home/desktop.nix
+              ./bundles/home/development.nix
+            ];
+          };
+        }
+      ];
+    };
+
+
     # oolong system == work computer
     nixosConfigurations.oolong = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
