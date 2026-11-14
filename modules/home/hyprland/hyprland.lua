@@ -12,6 +12,10 @@ hl.config({
     kb_layout = "us",
     follow_mouse = 1,
   },
+
+  misc = {
+    focus_on_activate = true,
+  },
 })
 
 -- programs
@@ -36,3 +40,4 @@ for i = 1, 10 do
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
 	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
+
