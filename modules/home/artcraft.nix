@@ -6,10 +6,17 @@
   imports = [ nix-flatpak.homeManagerModules.nix-flatpak ];
 
   services.flatpak = {
-    remotes = [{
-      name = "artcraft-oci";
-      location = "https://getartcraft.com/artcraft-oci.flatpakrepo";
-    }];
+    # flathub provides the org.freedesktop.Platform runtime artcraft needs
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+      }
+      {
+        name = "artcraft-oci";
+        location = "https://getartcraft.com/artcraft-oci.flatpakrepo";
+      }
+    ];
 
     packages = [
       { appId = "ai.storyteller.artcraft-launcher"; origin = "artcraft-oci"; }
