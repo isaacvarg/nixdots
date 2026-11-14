@@ -53,7 +53,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
 	        home-manager.extraSpecialArgs = {
-		        inherit lazyvim llm-agents;
+		        inherit lazyvim llm-agents nix-flatpak;
 	        };
 
           home-manager.users.isaac = {
@@ -62,6 +62,7 @@
               ./bundles/home/common.nix
               ./bundles/home/desktop.nix
               ./bundles/home/development.nix
+              ./bundles/home/productivity.nix
             ];
           };
         }
@@ -83,7 +84,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 	        home-manager.extraSpecialArgs = {
-		        inherit lazyvim llm-agents;
+		        inherit lazyvim llm-agents nix-flatpak;
 	        };
 
           home-manager.users.isaac = {
