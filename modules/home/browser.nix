@@ -1,6 +1,6 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
+
 {
- home.packages = [
-	pkgs.vivaldi
- ];
+  home.packages = [ pkgs.vivaldi ];
+  home.sessionVariables.BROWSER = "vivaldi";
 }

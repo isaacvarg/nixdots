@@ -8,5 +8,6 @@
 		../../modules/home/polkit.nix
     ../../modules/home/quickshell/quickshell.nix
     ../../modules/home/wallpaper.nix
+    ../../modules/home/xdg.nix
 	];
 }
