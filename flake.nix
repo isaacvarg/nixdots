@@ -24,6 +24,8 @@
     lazyvim.url = "github:pfassina/lazyvim-nix";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
   };
   
   outputs = { 
@@ -32,7 +34,8 @@
     home-manager, 
     lazyvim,
     llm-agents,
-    ... 
+    nix-flatpak,
+    ...
     }: {
 
     # latte system == home computer
@@ -43,6 +46,7 @@
         ./systems/latte
 
         home-manager.nixosModules.home-manager
+        nix-flatpak.nixosModules.nix-flatpak
 
         {
           home-manager.useGlobalPkgs = true;
@@ -73,6 +77,7 @@
         ./systems/oolong
 
         home-manager.nixosModules.home-manager
+        nix-flatpak.nixosModules.nix-flatpak
 
         {
           home-manager.useGlobalPkgs = true;

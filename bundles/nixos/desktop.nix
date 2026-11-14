@@ -7,5 +7,6 @@
     ../../modules/nixos/fonts.nix
     ../../modules/nixos/keyring.nix
     ../../modules/nixos/greeter.nix
+    ../../modules/nixos/flatpak.nix
   ];
 }
