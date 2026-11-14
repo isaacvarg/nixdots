@@ -13,5 +13,7 @@
 		fd
     lazygit
     hyprlauncher
+    discord
+    yazi
   ];
 }
