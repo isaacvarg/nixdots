@@ -7,6 +7,7 @@
       ../../bundles/nixos/desktop.nix
       ../../bundles/nixos/development.nix
       ../../bundles/nixos/gaming.nix
+      ../../bundles/nixos/productivity.nix
    ];
 
 
