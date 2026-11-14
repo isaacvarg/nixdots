@@ -6,7 +6,7 @@
       ../../bundles/nixos/common.nix
       ../../bundles/nixos/desktop.nix
       ../../bundles/nixos/development.nix
-      ../../bundles/home/gaming.nix
+      ../../bundles/nixos/gaming.nix
    ];
 
 
