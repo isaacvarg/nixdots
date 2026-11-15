@@ -14,7 +14,9 @@
     # remove anything not declared in config
     # might sound annoying but we committing to
     # the declarative nix aproach
-    uninstallUnmanaged = true;
+    # actually removing this for now bc
+    # it is uninstallinng things installed via artcraft
+    # uninstallUnmanaged = true;
 
     update.auto = {
       enable = true;
