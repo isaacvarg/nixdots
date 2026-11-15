@@ -8,6 +8,7 @@
       noto-fonts-color-emoji
       nerd-fonts.symbols-only
       nerd-fonts.jetbrains-mono
+      nunito
     ];
     fontconfig.defaultFonts = {
       sansSerif = [ "Noto Sans" "Symbols Nerd Font" ];
