@@ -64,6 +64,7 @@
               ./bundles/home/development.nix
               ./bundles/home/productivity.nix
             ];
+            my.ssh.onePasswordKeys = [ "nixos#latte" ];
           };
         }
       ];
@@ -95,6 +96,7 @@
               ./bundles/home/desktop.nix
               ./bundles/home/development.nix
             ];
+            my.ssh.onePasswordKeys = [ "nixos#oolong" ];
           };
         }
       ];
