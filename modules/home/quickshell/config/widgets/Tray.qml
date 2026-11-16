@@ -5,6 +5,7 @@ import QtQuick
 import qs.style
 
 Chip {
+	id: root
 	visible: SystemTray.items.values.length > 0
 	interactive: false
 
@@ -12,6 +13,7 @@ Chip {
 		model: SystemTray.items
 
 		delegate: IconImage {
+			id: icon
 			required property SystemTrayItem modelData
 			anchors.verticalCenter: parent.verticalCenter
 			source: modelData.icon
@@ -23,13 +25,18 @@ Chip {
 				cursorShape: Qt.PointingHandCursor
 				onClicked: mouse => {
 					if (mouse.button === Qt.LeftButton) {
-						modelData.activate()
-					} else if (modelData.hasMenu) {
-						const p = mapToItem(null, mouse.x, mouse.y)
-						modelData.display(QsWindow.window, p.x, p.y)
+						if (icon.modelData.onlyMenu && icon.modelData.hasMenu) menu.open(icon.modelData, icon)
+						else icon.modelData.activate()
+					} else if (icon.modelData.hasMenu) {
+						menu.open(icon.modelData, icon)
 					}
 				}
 			}
 		}
+	}
+
+	TrayMenuPopup {
+		id: menu
+		anchorItem: root
 	}
 }
