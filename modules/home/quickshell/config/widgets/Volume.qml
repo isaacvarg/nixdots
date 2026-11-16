@@ -11,7 +11,12 @@ Chip {
 
 	PwObjectTracker { objects: [ root.sink ] }
 
-	onClicked: if (ready) sink.audio.muted = !sink.audio.muted
+	active: popup.visible
+	acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+	onClicked: mouse => {
+		if (mouse.button === Qt.LeftButton) popup.visible = !popup.visible
+		else if (ready) sink.audio.muted = !sink.audio.muted
+	}
 	onScrolled: wheel => {
 		if (!ready) return
 		const step = wheel.angleDelta.y > 0 ? 0.05 : -0.05
@@ -26,6 +31,13 @@ Chip {
 		text: !root.ready ? "--"
 			: root.muted ? "muted"
 			: Math.round(root.volume * 100) + "%"
-		color: root.muted ? Theme.fgMuted : Theme.fg
+		color: root.active ? Theme.fgOnAccent
+			: root.muted ? Theme.fgMuted
+			: Theme.fg
+	}
+
+	VolumePopup {
+		id: popup
+		anchorItem: root
 	}
 }
