@@ -98,5 +98,27 @@
         }
       ];
     };
+
+  # matcha system == htpc
+  nixosConfigurations.matcha = nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = [
+      ./systems/matcha
+      home-manager.nixosModules.home-manager
+      nix-flatpak.nixosModules.nix-flatpak
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "backup";
+        home-manager.extraSpecialArgs = { inherit lazyvim llm-agents nix-flatpak; };
+  
+        home-manager.users.isaac.imports = [
+          ./users/isaac.nix
+          ./bundles/home/common.nix
+        ];
+      }
+    ];
+  };
+
   };
 }

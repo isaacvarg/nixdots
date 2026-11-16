@@ -11,4 +11,9 @@
     ../../modules/home/wallpaper.nix
     ../../modules/home/xdg.nix
 	];
+
+  home.packages = with pkgs; [
+    hyprlauncher
+    discord
+  ];
 }

@@ -12,8 +12,6 @@
 		bat
 		fd
     lazygit
-    hyprlauncher
-    discord
     yazi
   ];
 }
