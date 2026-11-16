@@ -10,5 +10,6 @@ in
     agents.claude-code
     agents.codex
     agents.chatgpt
+    agents.hermes-desktop
   ];
 }
