@@ -51,12 +51,31 @@ PopupCard {
 		delegate: ListItem {
 			id: row
 			required property BluetoothDevice modelData
-			visible: popup.powered && (modelData.paired || popup.scanning)
+			visible: popup.powered && (modelData.paired || modelData.pairing || popup.scanning)
+
+			readonly property bool busy: modelData.state === BluetoothDeviceState.Connecting
+				|| modelData.state === BluetoothDeviceState.Disconnecting
 
 			onClicked: {
-				if (!modelData.paired) modelData.pair()
-				else if (modelData.connected) modelData.disconnect()
-				else modelData.connect()
+				if (modelData.pairing) modelData.cancelPair()
+				else if (busy) return
+				else {
+					// Inquiry scans interfere with paging on many controllers (→ "Page Timeout").
+					if (popup.scanning) popup.adapter.discovering = false
+					if (!modelData.paired) modelData.pair()
+					else if (modelData.connected) modelData.disconnect()
+					else modelData.connect()
+				}
+			}
+
+      // trust after pair so it can recomnect 
+			Connections {
+				target: row.modelData
+				function onPairedChanged() {
+					if (!row.modelData.paired) return
+					row.modelData.trusted = true
+					row.modelData.connect()
+				}
 			}
 
 			BarText {
@@ -74,7 +93,8 @@ PopupCard {
 
 			BarText {
 				muted: true
-				text: row.modelData.state === BluetoothDeviceState.Connecting ? "…"
+				text: row.modelData.pairing ? "pairing… (cancel)"
+					: row.busy ? "…"
 					: row.modelData.connected ? "󰂱"
 					: !row.modelData.paired ? "pair"
 					: ""
