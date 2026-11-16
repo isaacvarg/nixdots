@@ -5,6 +5,7 @@
       ./hardware-configuration.nix
       ../../bundles/nixos/common.nix
       ../../bundles/nixos/gaming.nix
+      ../../modules/nixos/bluetooth.nix
    ];
 
 

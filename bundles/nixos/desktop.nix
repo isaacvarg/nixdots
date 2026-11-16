@@ -8,5 +8,6 @@
     ../../modules/nixos/keyring.nix
     ../../modules/nixos/greeter.nix
     ../../modules/nixos/flatpak.nix
+    ../../modules/nixos/bluetooth.nix
   ];
 }
