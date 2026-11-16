@@ -20,7 +20,9 @@
 
 		config.hyprland = {
 			default = [ "hyprland" "gtk" ];
-			"org.freedesktop.impl.portal.FileChooser" = "gtk";
+			"org.freedesktop.impl.portal.FileChooser" = [
+        "strata" "gtk"
+      ];
 		};
 	};
 }

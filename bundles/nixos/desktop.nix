@@ -9,5 +9,6 @@
     ../../modules/nixos/greeter.nix
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/bluetooth.nix
+    ../../modules/nixos/strata.nix
   ];
 }

@@ -205,7 +205,28 @@
         "lazyvim": "lazyvim",
         "llm-agents": "llm-agents",
         "nix-flatpak": "nix-flatpak",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_3",
+        "strata": "strata"
+      }
+    },
+    "strata": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794845756,
+        "narHash": "sha256-d6avzOhMLpUdMnq2jYwzRj0uhtf62VAOCzMwUWovgFM=",
+        "owner": "lgse",
+        "repo": "strata",
+        "rev": "d4679c61d31c58bc3c8af3d6241d8514b6d0e9c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lgse",
+        "repo": "strata",
+        "type": "github"
       }
     },
     "systems": {

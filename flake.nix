@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    strata = {
+      url = "github:lgse/strata";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lazyvim.url = "github:pfassina/lazyvim-nix";
 
     llm-agents.url = "github:numtide/llm-agents.nix";
@@ -35,12 +40,14 @@
     lazyvim,
     llm-agents,
     nix-flatpak,
+    strata,
     ...
     }: {
 
     # latte system == home computer
     nixosConfigurations.latte = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit strata; };
 
       modules = [
         ./systems/latte
@@ -53,7 +60,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
 	        home-manager.extraSpecialArgs = {
-		        inherit lazyvim llm-agents nix-flatpak;
+		        inherit lazyvim llm-agents nix-flatpak strata;
 	        };
 
           home-manager.users.isaac = {
@@ -74,6 +81,7 @@
     # oolong system == work computer
     nixosConfigurations.oolong = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit strata; };
 
       modules = [
         ./systems/oolong
@@ -86,7 +94,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
 	        home-manager.extraSpecialArgs = {
-		        inherit lazyvim llm-agents nix-flatpak;
+		        inherit lazyvim llm-agents nix-flatpak strata;
 	        };
 
           home-manager.users.isaac = {

@@ -12,6 +12,9 @@ xdg.mimeApps = {
       "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
       # this one was added by codex/chatgtp desktop
       "x-scheme-handler/codex"   = "chatgpt.desktop";
+
+      # strata as default folder handler
+      "inode/directory" = "io.github.lgse.Strata.desktop";
     };
   };
 }
