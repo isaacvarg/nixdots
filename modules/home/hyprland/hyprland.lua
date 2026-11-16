@@ -16,6 +16,11 @@ hl.config({
   misc = {
     focus_on_activate = true,
   },
+
+  decoration = {
+    rounding = 12,
+  },
+
 })
 
 -- programs
