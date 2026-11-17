@@ -10,6 +10,7 @@
     ../../modules/home/quickshell/quickshell.nix
     ../../modules/home/wallpaper.nix
     ../../modules/home/xdg.nix
+    ../../modules/home/screenshot.nix
 	];
 
   home.packages = with pkgs; [
