@@ -25,6 +25,19 @@ in
       '';
     };
 
+    # ssh refuses a config file that isn't owned by you or by root. things like 
+    # claude desktop  runs commands in a bubblewrap FHS env that maps only my 
+    # uid, so files in /nix/store show up as owned by nobody, and ssh rejects
+    # a symlink into the store. home-manager links the generated file as
+    # ~/.ssh/config.hm instead, and the activation step below copies it to
+    # ~/.ssh/config as a file you own. Each switch overwrites that copy, so
+    # make changes in this module.
+    home.file.".ssh/config".target = ".ssh/config.hm";
+
+    home.activation.installSshConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      run install -D -m600 ${config.home.file.".ssh/config".source} "$HOME/.ssh/config"
+    '';
+
     home.sessionVariables = {
       SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
     };
