@@ -1,4 +1,4 @@
-{ nix-flatpak, ... }:
+{ lib, nix-flatpak, ... }:
 
 {
   # artcraft's oci remote needs the desktop session bus to install,
@@ -29,4 +29,6 @@
       onCalendar = "weekly";
     };
   };
+
+  systemd.user.services.flatpak-managed-install.Service.Type = lib.mkForce "exec";
 }
