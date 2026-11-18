@@ -14,6 +14,7 @@ PanelWindow {
 
 	// Left
 	Workspaces {
+		screen: root.screen
 		anchors.left: parent.left
 		anchors.leftMargin: Theme.padding
 		anchors.verticalCenter: parent.verticalCenter
