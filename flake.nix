@@ -103,6 +103,7 @@
               ./bundles/home/common.nix
               ./bundles/home/desktop.nix
               ./bundles/home/development.nix
+              ./bundles/home/productivity.nix
             ];
             my.ssh.onePasswordKeys = [ "nixos#oolong" ];
           };
