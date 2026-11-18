@@ -13,5 +13,6 @@
 		fd
     lazygit
     yazi
+    ouch
   ];
 }
