@@ -7,7 +7,26 @@
       ../../bundles/nixos/desktop.nix
       ../../bundles/nixos/development.nix
       ../../bundles/nixos/gaming.nix
+      ../../modules/nixos/sops.nix
+      ../../modules/nixos/nas.nix
    ];
+
+  my.nas = {
+    host = "192.168.68.65";
+    sopsFile = ../../secrets/latte.yaml;
+    shares = {
+      "/mnt/minimonster/collections" = "collections";
+      "/mnt/minimonster/docker" = "docker";
+      "/mnt/minimonster/downloads" = "downloads";
+      "/mnt/minimonster/glacier" = "glacier";
+      "/mnt/minimonster/isaac" = "isaac";
+      "/mnt/minimonster/momentos" = "momentos";
+      "/mnt/minimonster/personal" = "personal";
+      "/mnt/minimonster/pkm" = "pkm";
+      "/mnt/minimonster/storage" = "storage";
+      "/mnt/minimonster/paperless-inbox" = "paperless-inbox";
+    };
+  };
 
 
   boot.loader.systemd-boot.enable = true;

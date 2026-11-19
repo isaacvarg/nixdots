@@ -31,6 +31,11 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = { 
@@ -40,6 +45,7 @@
     lazyvim,
     llm-agents,
     nix-flatpak,
+    sops-nix,
     strata,
     ...
     }: {
@@ -54,6 +60,7 @@
 
         home-manager.nixosModules.home-manager
         nix-flatpak.nixosModules.nix-flatpak
+        sops-nix.nixosModules.sops
 
         {
           home-manager.useGlobalPkgs = true;

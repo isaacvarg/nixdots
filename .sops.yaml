@@ -1,0 +1,11 @@
+keys:
+  - &isaac age1nqkq8urk70vfhn2nm8q72c4qantu9vfq05grjhz0dhvmxz50t9mqpymlu5
+
+  - &latte age1jnu4zczenetjkhc36m8xzkaz2am40wwu773z3lsqzj2fqjach48qrav83j
+
+creation_rules:
+  - path_regex: ^secrets/latte\.yaml$
+    key_groups:
+      - age:
+          - *isaac
+          - *latte
