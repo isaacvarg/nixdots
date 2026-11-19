@@ -5,6 +5,8 @@
 		lazyvim.homeManagerModules.default
 	];
 
+	home.sessionVariables.EDITOR = "nvim";
+
 	programs.lazyvim = {
 		enable = true;
 
