@@ -36,6 +36,11 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    skwd-wall = {
+      url = "github:liixini/skwd-wall/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   
   outputs = { 
@@ -45,6 +50,7 @@
     lazyvim,
     llm-agents,
     nix-flatpak,
+    skwd-wall,
     sops-nix,
     strata,
     ...
@@ -53,7 +59,7 @@
     # latte system == home computer
     nixosConfigurations.latte = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit strata; };
+      specialArgs = { inherit skwd-wall strata; };
 
       modules = [
         ./systems/latte
@@ -88,7 +94,7 @@
     # oolong system == work computer
     nixosConfigurations.oolong = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit strata; };
+      specialArgs = { inherit skwd-wall strata; };
 
       modules = [
         ./systems/oolong

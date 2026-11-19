@@ -10,5 +10,6 @@
     ../../modules/nixos/flatpak.nix
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/strata.nix
+    ../../modules/nixos/skwd-wall.nix
   ];
 }

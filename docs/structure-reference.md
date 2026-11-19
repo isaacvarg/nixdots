@@ -35,7 +35,8 @@ nixdots/
 │   │   ├── docker.nix
 │   │   ├── 1password.nix
 │   │   ├── nix-ld.nix
-│   │   └── llm-cache.nix
+│   │   ├── llm-cache.nix
+│   │   └── skwd-wall.nix         # wallpaper picker + daemon, steamcmd
 │   └── home/                     # user level (~/.config, user packages)
 │       ├── hyprland/             # a feature with raw config gets a folder
 │       │   ├── hyprland.nix
@@ -69,9 +70,9 @@ nixdots/
 
 The entry point declares four inputs and builds one output, `nixosConfigurations.oolong`. It also holds the Home Manager user imports, which the original plan put in `systems/`.
 
-- Inputs: `nixpkgs` (nixos-unstable), `home-manager` (master, follows nixpkgs), `lazyvim` (pfassina/lazyvim-nix) and `llm-agents` (numtide/llm-agents.nix).
+- Inputs: `nixpkgs` (nixos-unstable), `home-manager` (master, follows nixpkgs), `strata` (lgse/strata), `lazyvim` (pfassina/lazyvim-nix), `llm-agents` (numtide/llm-agents.nix), `nix-flatpak`, `sops-nix` and `skwd-wall` (liixini/skwd-wall, `nix` branch, follows nixpkgs).
 - `nixConfig` adds the numtide binary cache so the very first build already uses it; `modules/nixos/llm-cache.nix` adds the same cache to the running system.
-- No `specialArgs`. `extraSpecialArgs` passes `lazyvim` and `llm-agents` by name, not the whole `inputs` set, so HM modules take them as `{ lazyvim, ... }` and `{ llm-agents, ... }`.
+- Inputs are passed by name, never the whole `inputs` set. `specialArgs` gives NixOS modules `strata` and `skwd-wall` (latte and oolong only); `extraSpecialArgs` gives HM modules `lazyvim`, `llm-agents`, `nix-flatpak` and `strata`. Modules take them as `{ skwd-wall, ... }` and so on.
 - `nh os switch .` (or `nixos-rebuild switch --flake .#oolong`) builds the entry matching the hostname.
 
 ```nix
@@ -168,10 +169,10 @@ A bundle is a role a machine plays (common, desktop, development) expressed as a
 | Bundle | Imports | Also sets |
 | --- | --- | --- |
 | `nixos/common.nix` | nothing | flakes + nix-command, `allowUnfree` |
-| `nixos/desktop.nix` | `hyprland`, `localsend` | — |
+| `nixos/desktop.nix` | `hyprland`, `localsend`, `fonts`, `keyring`, `greeter`, `flatpak`, `bluetooth`, `strata`, `skwd-wall` | — |
 | `nixos/development.nix` | `docker`, `nix-ld`, `1password`, `llm-cache` | firewall TCP 3000 |
 | `home/common.nix` | nothing | packages: fastfetch, ripgrep, bat, fd, lazygit, hyprlauncher |
-| `home/desktop.nix` | `hyprland/hyprland.nix`, `terminal`, `browser`, `polkit` | — |
+| `home/desktop.nix` | `hyprland/hyprland.nix`, `terminal`, `browser`, `cursor`, `polkit`, `quickshell/quickshell.nix`, `xdg`, `screenshot` | packages: hyprlauncher, discord, playerctl |
 | `home/development.nix` | `ssh`, `neovim`, `mise`, `git`, `gh`, `ai` | — |
 
 - 1Password is in the development bundle, not desktop, because the SSH agent (`modules/home/ssh.nix`) depends on it.
@@ -240,9 +241,20 @@ The config is `modules/home/hyprland/hyprland.lua`, beside `hyprland.nix`. Hyprl
 }
 ```
 
-`hyprland.lua` binds Super+Return to ghostty and Super+Space to hyprlauncher (not fuzzel). It sets no monitors yet. When a second machine needs its own layout, keep the shared file here and set the per-machine part from `systems/<name>/`.
+`hyprland.lua` binds Super+Return to ghostty, Super+Space to hyprlauncher (not fuzzel) and Super+W to the skwd-wall picker. It sets no monitors yet. When a second machine needs its own layout, keep the shared file here and set the per-machine part from `systems/<name>/`.
 
 The file is read at build time with `builtins.readFile`, so edits need a rebuild.
+
+### skwd-wall: wallpapers
+
+`modules/nixos/skwd-wall.nix` imports upstream's NixOS module and sets `services.skwd-deck.enable = true`. That installs the suite (`skwd-wall-v2` picker, `skwd-walld` daemon, `skwd-paper` renderer, `skwd-lens` search plus its model) and a `skwd-walld` user service tied to `graphical-session.target`. It replaced awww and waypaper; don't run another wallpaper daemon beside it.
+
+- The input is the `nix` branch, a release channel that upstream's CI rewrites on every release. It shares no history with the code branches; the source is the `v2` branch (MIT). Ignore `main`, which is the old v1 line.
+- The packages are the prebuilt release binaries, patched with autoPatchelf, x86_64 only. `nix flake update skwd-wall` moves to the latest beta.
+- Upstream's module reads `pkgs.system`, which prints a `'system' has been renamed` evaluation warning. It's harmless and not ours to fix.
+- Steam Workshop uses steamcmd, which the module installs. The rest is runtime state, not Nix: run `steamcmd +login <user> +quit` once with the account that owns Wallpaper Engine, then set the method, username and Steam Web API key in skwd-wall under Settings > Sources > Steam Workshop and run `systemctl --user restart skwd-walld`.
+- Items subscribed in the Steam client also show up, because skwd-wall reads Steam's Workshop folder. Wallpaper Engine scenes likely need Wallpaper Engine installed through Steam for its assets, which only latte has.
+- Colour theming from wallpapers (Matugen into quickshell's `Theme.qml`) is not set up yet.
 
 ## users/
 

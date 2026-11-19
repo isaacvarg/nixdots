@@ -206,8 +206,30 @@
         "llm-agents": "llm-agents",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_3",
+        "skwd-wall": "skwd-wall",
         "sops-nix": "sops-nix",
         "strata": "strata"
+      }
+    },
+    "skwd-wall": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792102657,
+        "narHash": "sha256-iXWuCKOidcaAEg6sbnJRGrNfEPjNkcDYmoiW+YJZ74g=",
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "rev": "3f80b1922aa6674065970dc6b78fc948960e84d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "ref": "nix",
+        "repo": "skwd-wall",
+        "type": "github"
       }
     },
     "sops-nix": {
