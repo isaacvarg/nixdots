@@ -15,6 +15,16 @@
   networking.hostName = "oolong";
   networking.networkmanager.enable = true;
 
+  # the workgateway drops public names that resolve to
+  # private ips so bypass the the DNS
+  networking.networkmanager.dns = "none";
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
+  ];
+
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
