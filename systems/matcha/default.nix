@@ -4,8 +4,11 @@
   imports = [
       ./hardware-configuration.nix
       ../../bundles/nixos/common.nix
+      ../../bundles/nixos/media.nix
       ../../bundles/nixos/gaming.nix
       ../../modules/nixos/bluetooth.nix
+      ../../modules/nixos/openssh.nix
+      ../../modules/nixos/sops.nix
    ];
 
 
@@ -36,6 +39,7 @@
     variant = "";
   };
 
+  # boot straight into Bigscreen, no login screen
   services.displayManager.autoLogin = {
       enable = true;
       user = "isaac";
@@ -43,11 +47,19 @@
 
   programs.fish.enable = true;
 
+  # The password is only for sudo and the console; autologin skips it.
+  # neededForUsers decrypts it before NixOS creates the user.
+  sops.secrets."isaac/hashed-password" = {
+    sopsFile = ../../secrets/matcha.yaml;
+    neededForUsers = true;
+  };
+
   users.users."isaac" = {
     isNormalUser = true;
     description = "isaac";
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.fish;
+    hashedPasswordFile = config.sops.secrets."isaac/hashed-password".path;
     packages = with pkgs; [];
   };
 

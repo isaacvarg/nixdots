@@ -127,15 +127,18 @@
   # matcha system == htpc
   nixosConfigurations.matcha = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
+    specialArgs = { inherit skwd-wall strata; };
+
     modules = [
       ./systems/matcha
       home-manager.nixosModules.home-manager
       nix-flatpak.nixosModules.nix-flatpak
+      sops-nix.nixosModules.sops
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.backupFileExtension = "backup";
-        home-manager.extraSpecialArgs = { inherit lazyvim llm-agents nix-flatpak; };
+        home-manager.extraSpecialArgs = { inherit lazyvim llm-agents nix-flatpak strata; };
   
         home-manager.users.isaac.imports = [
           ./users/isaac.nix

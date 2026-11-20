@@ -14,6 +14,12 @@
 
   environment.systemPackages = [ pkgs.kdePackages.plasma-bigscreen ];
 
+  environment.etc."xdg/kscreenlockerrc".text = ''
+    [Daemon]
+    Autolock=false
+    LockOnResume=false
+  '';
+
   services.udev.packages = [ pkgs.libcec ];
   users.users.isaac.extraGroups = [ "dialout" ];
 }
