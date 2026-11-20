@@ -47,6 +47,12 @@
 
   programs.fish.enable = true;
 
+  # The installer already created isaac with a password. With mutable users,
+  # NixOS keeps an existing password and ignores hashedPasswordFile, so the
+  # sops password would never apply. This makes Nix the only source of
+  # passwords. Root stays locked; use sudo.
+  users.mutableUsers = false;
+
   # The password is only for sudo and the console; autologin skips it.
   # neededForUsers decrypts it before NixOS creates the user.
   sops.secrets."isaac/hashed-password" = {
