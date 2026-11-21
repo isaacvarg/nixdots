@@ -108,6 +108,12 @@ Singleton {
 	readonly property int launcherRowHeight: 40
 	readonly property int launcherRows: 8
 	readonly property int launcherIconSize: 26
+	readonly property int launcherBannerHeight: 140
+	readonly property int launcherSideImageWidth: 240
+	readonly property int launcherGridColumns: 5
+	readonly property int launcherGridRows: 3
+	readonly property int launcherTileHeight: 96
+	readonly property int launcherTileIconSize: 40
 
 	// ── Motion ──────────────────────────────────────────────
 	readonly property int animDuration: 150

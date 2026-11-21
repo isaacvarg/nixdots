@@ -1,4 +1,3 @@
-import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.style
@@ -8,7 +7,6 @@ Item {
 	required property var modelData
 	required property int index
 	readonly property bool hovered: hover.hovered
-	readonly property string iconSource: Quickshell.iconPath(modelData.icon, true)
 	signal clicked()
 
 	implicitHeight: Theme.launcherRowHeight
@@ -27,33 +25,7 @@ Item {
 		anchors.rightMargin: Theme.spacingSmall
 		spacing: Theme.spacing
 
-		Item {
-			implicitWidth: Theme.launcherIconSize
-			implicitHeight: Theme.launcherIconSize
-
-			Image {
-				anchors.fill: parent
-				visible: row.iconSource !== ""
-				source: row.iconSource
-				sourceSize.width: Theme.launcherIconSize
-				sourceSize.height: Theme.launcherIconSize
-				asynchronous: true
-			}
-
-			Rectangle {
-				anchors.fill: parent
-				visible: row.iconSource === ""
-				radius: Theme.radius
-				color: Theme.chipBgHover
-
-				BarText {
-					anchors.centerIn: parent
-					text: row.modelData.name.charAt(0).toUpperCase()
-					color: Theme.accent
-					font.bold: true
-				}
-			}
-		}
+		AppIcon { entry: row.modelData }
 
 		BarText {
 			text: row.modelData.name

@@ -2,19 +2,69 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import Qt.labs.folderlistmodel
 import QtQuick
 import QtQuick.Layouts
+import qs.settings
 import qs.style
 
 Scope {
 	id: root
 	property bool open: false
 
+	readonly property string layout: Settings.launcherLayout
+	readonly property bool split: layout === "split"
+	readonly property string home: Quickshell.env("HOME")
+	readonly property string imagePath: Settings.launcherImagePath.replace(/^~(?=\/|$)/, home)
+	property string folderPick: ""
+
+	readonly property string image: {
+		switch (Settings.launcherImage) {
+		case "wallpaper": return wall.thumb || wall.path
+		case "file": return imagePath
+		case "folder": return folderPick
+		default: return ""
+		}
+	}
+
+	function pickFromFolder() {
+		folderPick = folder.count > 0
+			? folder.get(Math.floor(Math.random() * folder.count), "filePath")
+			: ""
+	}
+
+	onOpenChanged: if (open && Settings.launcherImage === "folder") pickFromFolder()
+
 	IpcHandler {
 		target: "launcher"
 		function toggle(): void { root.open = !root.open }
 		function open(): void { root.open = true }
 		function close(): void { root.open = false }
+	}
+
+	FileView {
+		path: (Quickshell.env("XDG_CACHE_HOME") || root.home + "/.cache")
+			+ "/skwd-wall-v2/last-wallpaper.json"
+		watchChanges: true
+		printErrors: false
+		onFileChanged: reload()
+
+		JsonAdapter {
+			id: wall
+			property string path: ""
+			property string thumb: ""
+		}
+	}
+
+	FolderListModel {
+		id: folder
+		folder: Settings.launcherImage === "folder" && root.imagePath !== ""
+			? "file://" + root.imagePath
+			: ""
+		nameFilters: ["*.png", "*.jpg", "*.jpeg", "*.webp", "*.bmp", "*.gif"]
+		showDirs: false
+		caseSensitive: false
+		onCountChanged: if (root.folderPick === "") root.pickFromFolder()
 	}
 
 	LazyLoader {
@@ -31,6 +81,7 @@ Scope {
 			WlrLayershell.namespace: "quickshell-launcher"
 
 			readonly property var results: Apps.search(input.text)
+			readonly property var view: viewLoader.item
 
 			function launch(entry) {
 				if (!entry) return
@@ -46,7 +97,8 @@ Scope {
 			Rectangle {
 				id: card
 				width: Theme.launcherWidth
-				height: column.implicitHeight + Theme.padding * 2
+					+ (sideImage.shown ? Theme.launcherSideImageWidth + Theme.spacing : 0)
+				height: content.implicitHeight + Theme.padding * 2
 				x: (parent.width - width) / 2
 				y: parent.height * 0.22
 				color: Theme.popupBg
@@ -56,93 +108,124 @@ Scope {
 
 				MouseArea { anchors.fill: parent }
 
-				ColumnLayout {
-					id: column
+				RowLayout {
+					id: content
 					anchors.fill: parent
 					anchors.margins: Theme.padding
-					spacing: Theme.spacingSmall
+					spacing: Theme.spacing
 
-					RowLayout {
+					LauncherImage {
+						id: sideImage
+						source: root.split ? root.image : ""
+						Layout.preferredWidth: Theme.launcherSideImageWidth
+						Layout.fillHeight: true
+					}
+
+					ColumnLayout {
 						Layout.fillWidth: true
-						Layout.preferredHeight: Theme.launcherRowHeight
-						Layout.leftMargin: Theme.spacingSmall
-						spacing: Theme.spacing
+						Layout.alignment: Qt.AlignTop
+						spacing: Theme.spacingSmall
 
-						BarText {
-							text: "󰍉"
-							color: Theme.accent
-							font.pixelSize: Theme.iconSize + 3
+						LauncherImage {
+							source: root.split ? "" : root.image
+							Layout.fillWidth: true
+							Layout.preferredHeight: Theme.launcherBannerHeight
+							Layout.bottomMargin: Theme.spacingSmall
 						}
 
-						TextInput {
-							id: input
+						RowLayout {
 							Layout.fillWidth: true
-							focus: true
-							color: Theme.fg
-							selectionColor: Theme.accent
-							selectedTextColor: Theme.fgOnAccent
-							font.family: Theme.fontFamily
-							font.pixelSize: Theme.fontSize + 3
-							clip: true
-
-							onTextChanged: list.currentIndex = 0
+							Layout.preferredHeight: Theme.launcherRowHeight
+							Layout.leftMargin: Theme.spacingSmall
+							spacing: Theme.spacing
 
 							BarText {
-								visible: input.text === ""
-								text: "Search apps"
-								muted: true
-								font.pixelSize: input.font.pixelSize
+								text: "󰍉"
+								color: Theme.accent
+								font.pixelSize: Theme.iconSize + 3
 							}
 
-							Keys.onPressed: event => {
-								const ctrl = event.modifiers & Qt.ControlModifier
-								if (event.key === Qt.Key_Escape) root.open = false
-								else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter)
-									win.launch(win.results[list.currentIndex])
-								else if (event.key === Qt.Key_Down || event.key === Qt.Key_Tab
-										|| (ctrl && (event.key === Qt.Key_J || event.key === Qt.Key_N)))
-									list.incrementCurrentIndex()
-								else if (event.key === Qt.Key_Up || event.key === Qt.Key_Backtab
-										|| (ctrl && (event.key === Qt.Key_K || event.key === Qt.Key_P)))
-									list.decrementCurrentIndex()
-								else return
-								event.accepted = true
+							TextInput {
+								id: input
+								Layout.fillWidth: true
+								focus: true
+								color: Theme.fg
+								selectionColor: Theme.accent
+								selectedTextColor: Theme.fgOnAccent
+								font.family: Theme.fontFamily
+								font.pixelSize: Theme.fontSize + 3
+								clip: true
+
+								onTextChanged: if (win.view) win.view.currentIndex = 0
+
+								BarText {
+									visible: input.text === ""
+									text: "Search apps"
+									muted: true
+									font.pixelSize: input.font.pixelSize
+								}
+
+								Keys.onPressed: event => {
+									const ctrl = event.modifiers & Qt.ControlModifier
+									const key = event.key
+									const v = win.view
+									let handled = true
+
+									if (key === Qt.Key_Escape) root.open = false
+									else if (key === Qt.Key_Return || key === Qt.Key_Enter)
+										win.launch(win.results[v.currentIndex])
+									else if (key === Qt.Key_Tab) v.step(1)
+									else if (key === Qt.Key_Backtab) v.step(-1)
+									else if (key === Qt.Key_Down || (ctrl && (key === Qt.Key_J || key === Qt.Key_N)))
+										v.move(0, 1)
+									else if (key === Qt.Key_Up || (ctrl && (key === Qt.Key_K || key === Qt.Key_P)))
+										v.move(0, -1)
+									else if (key === Qt.Key_Right) handled = v.move(1, 0)
+									else if (key === Qt.Key_Left) handled = v.move(-1, 0)
+									else handled = false
+
+									event.accepted = handled
+								}
 							}
 						}
-					}
 
-					Divider { visible: win.results.length > 0 }
+						Divider { visible: win.results.length > 0 || root.split }
 
-					ListView {
-						id: list
-						Layout.fillWidth: true
-						Layout.preferredHeight: Math.min(count, Theme.launcherRows) * Theme.launcherRowHeight
-						visible: count > 0
-						clip: true
-						model: win.results
-						highlightMoveDuration: Theme.animDuration
-						boundsBehavior: Flickable.StopAtBounds
-
-						highlight: Rectangle {
-							radius: Theme.radius
-							color: Theme.chipBg
+						Loader {
+							id: viewLoader
+							Layout.fillWidth: true
+							Layout.preferredHeight: item?.implicitHeight ?? 0
+							visible: root.split || (item?.count ?? 0) > 0
+							sourceComponent: root.layout === "grid" ? gridView : listView
 						}
 
-						delegate: AppRow {
-							width: list.width
-							onHoveredChanged: if (hovered) list.currentIndex = index
-							onClicked: win.launch(modelData)
+						BarText {
+							visible: win.results.length === 0 && input.text !== ""
+							Layout.fillWidth: true
+							Layout.preferredHeight: Theme.launcherRowHeight
+							horizontalAlignment: Text.AlignHCenter
+							text: "No matches"
+							muted: true
 						}
 					}
+				}
+			}
 
-					BarText {
-						visible: win.results.length === 0 && input.text !== ""
-						Layout.fillWidth: true
-						Layout.preferredHeight: Theme.launcherRowHeight
-						horizontalAlignment: Text.AlignHCenter
-						text: "No matches"
-						muted: true
-					}
+			Component {
+				id: listView
+				ResultsList {
+					results: win.results
+					fixedHeight: root.split
+					onActivated: entry => win.launch(entry)
+				}
+			}
+
+			Component {
+				id: gridView
+				ResultsGrid {
+					results: win.results
+					fixedHeight: root.split
+					onActivated: entry => win.launch(entry)
 				}
 			}
 		}

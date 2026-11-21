@@ -15,4 +15,13 @@ Singleton {
 	readonly property int edgeMargin: 8
 
 	readonly property real tintStrength: 0.12
+
+	// Launcher look:
+	//   launcherLayout: "list" | "grid" | "split" (image panel on left)
+	//   launcherImage:  "wallpaper" follows skwd, "file" shows launcherImagePath,
+	//                   "folder" picks random image from launcherImagePath each open,
+	//                   "none" hides it
+	readonly property string launcherLayout: "list"
+	readonly property string launcherImage: "wallpaper"
+	readonly property string launcherImagePath: ""
 }
