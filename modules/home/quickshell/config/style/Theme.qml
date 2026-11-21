@@ -1,10 +1,13 @@
 pragma Singleton
 
 import Quickshell
+import Quickshell.Io
 import QtQuick
 
 Singleton {
-	// ── Catppuccin Macchiato palette ─────────────────────────
+	id: root
+
+	// ── Catppuccin Macchiato palette (fallback) ──────────────
 	readonly property color rosewater: "#f4dbd6"
 	readonly property color flamingo:  "#f0c6c6"
 	readonly property color pink:      "#f5bde6"
@@ -32,20 +35,48 @@ Singleton {
 	readonly property color mantle:    "#1e2030"
 	readonly property color crust:     "#181926"
 
+	// ── Wallpaper colours from skwd-wall ────────────────────
+	// skwd-walld renders modules/home/skwd-wall/templates/quickshell-colors.json
+	// here on every wallpaper change. Until the file exists (or if it
+	// fails to parse) the Catppuccin defaults below stay in place.
+	FileView {
+		path: (Quickshell.env("XDG_CACHE_HOME") || Quickshell.env("HOME") + "/.cache")
+			+ "/skwd-wall-v2/quickshell-colors.json"
+		watchChanges: true
+		printErrors: false
+		onFileChanged: reload()
+
+		JsonAdapter {
+			id: wall
+			property string background:              root.mantle
+			property string surfaceContainer:        root.base
+			property string surfaceContainerHigh:    root.surface0
+			property string surfaceContainerHighest: root.surface1
+			property string onSurface:               root.text
+			property string outline:                 root.overlay1
+			property string outlineVariant:          root.surface1
+			property string primary:                 root.mauve
+			property string onPrimary:               root.crust
+			property string secondary:               root.blue
+			property string error:                   root.red
+		}
+	}
+
 	// ── Semantic roles (widgets use these, never raw palette names) ─
-	readonly property color barBg:       mantle
-	readonly property color fg:          text
-	readonly property color fgMuted:     overlay1
-	readonly property color fgOnAccent:  crust
-	readonly property color accent:      mauve
-	readonly property color chipBg:      surface0
-	readonly property color chipBgHover: surface1
-	readonly property color popupBg:     base
-	readonly property color border:      surface1
+	readonly property color barBg:       wall.background
+	readonly property color fg:          wall.onSurface
+	readonly property color fgMuted:     wall.outline
+	readonly property color fgOnAccent:  wall.onPrimary
+	readonly property color accent:      wall.primary
+	readonly property color chipBg:      wall.surfaceContainerHigh
+	readonly property color chipBgHover: wall.surfaceContainerHighest
+	readonly property color popupBg:     wall.surfaceContainer
+	readonly property color border:      wall.outlineVariant
+	// status colours stay fixed so they mean the same on every wallpaper
 	readonly property color good:        green
 	readonly property color warn:        peach
-	readonly property color critical:    red
-	readonly property color info:        blue
+	readonly property color critical:    wall.error
+	readonly property color info:        wall.secondary
 
 	// ── Typography ──────────────────────────────────────────
 	readonly property string fontFamily: "JetBrainsMono Nerd Font"

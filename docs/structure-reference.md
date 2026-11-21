@@ -41,6 +41,9 @@ nixdots/
 │       ├── hyprland/             # a feature with raw config gets a folder
 │       │   ├── hyprland.nix
 │       │   └── hyprland.lua      # read into HM's hyprland module
+│       ├── skwd-wall/
+│       │   ├── skwd-wall.nix     # wallpaper folder + colour integrations in config.json
+│       │   └── templates/        # colour templates skwd renders per wallpaper
 │       ├── terminal.nix
 │       ├── browser.nix
 │       ├── polkit.nix
@@ -172,7 +175,7 @@ A bundle is a role a machine plays (common, desktop, development) expressed as a
 | `nixos/desktop.nix` | `hyprland`, `localsend`, `fonts`, `keyring`, `greeter`, `flatpak`, `bluetooth`, `strata`, `skwd-wall` | — |
 | `nixos/development.nix` | `docker`, `nix-ld`, `1password`, `llm-cache` | firewall TCP 3000 |
 | `home/common.nix` | nothing | packages: fastfetch, ripgrep, bat, fd, lazygit, hyprlauncher |
-| `home/desktop.nix` | `hyprland/hyprland.nix`, `terminal`, `browser`, `cursor`, `polkit`, `quickshell/quickshell.nix`, `xdg`, `screenshot` | packages: hyprlauncher, discord, playerctl |
+| `home/desktop.nix` | `hyprland/hyprland.nix`, `terminal`, `browser`, `cursor`, `polkit`, `quickshell/quickshell.nix`, `skwd-wall/skwd-wall.nix`, `xdg`, `screenshot` | packages: hyprlauncher, discord, playerctl |
 | `home/development.nix` | `ssh`, `neovim`, `mise`, `git`, `gh`, `ai` | — |
 
 - 1Password is in the development bundle, not desktop, because the SSH agent (`modules/home/ssh.nix`) depends on it.
@@ -254,7 +257,12 @@ The file is read at build time with `builtins.readFile`, so edits need a rebuild
 - Upstream's module reads `pkgs.system`, which prints a `'system' has been renamed` evaluation warning. It's harmless and not ours to fix.
 - Steam Workshop uses steamcmd, which the module installs. The rest is runtime state, not Nix: run `steamcmd +login <user> +quit` once with the account that owns Wallpaper Engine, then set the method, username and Steam Web API key in skwd-wall under Settings > Sources > Steam Workshop and run `systemctl --user restart skwd-walld`.
 - Items subscribed in the Steam client also show up, because skwd-wall reads Steam's Workshop folder. Wallpaper Engine scenes likely need Wallpaper Engine installed through Steam for its assets, which only latte has.
-- Colour theming from wallpapers (Matugen into quickshell's `Theme.qml`) is not set up yet.
+
+### skwd-wall: colours from the wallpaper
+
+`modules/home/skwd-wall/skwd-wall.nix` has skwd-wall theme quickshell, ghostty and yazi from the wallpaper. It lists the apps as `integrations` and writes them, plus the wallpaper folder, into skwd's `config.json` on every switch. How it works, the template tokens and how to add an app are in [theming.md](theming.md).
+
+- The wallpaper folder used to be `paths.wallpaper`; skwd-wall now reads `library.folders` and only falls back to the old key.
 
 ## users/
 

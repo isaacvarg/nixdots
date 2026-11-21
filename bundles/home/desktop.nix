@@ -8,6 +8,7 @@
 		../../modules/home/cursor.nix
 		../../modules/home/polkit.nix
     ../../modules/home/quickshell/quickshell.nix
+    ../../modules/home/skwd-wall/skwd-wall.nix
     ../../modules/home/xdg.nix
     ../../modules/home/screenshot.nix
 	];
