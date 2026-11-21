@@ -3,9 +3,18 @@ keys:
 
   - &latte age1jnu4zczenetjkhc36m8xzkaz2am40wwu773z3lsqzj2fqjach48qrav83j
 
+  - &matcha age1zs83jjytuhv4nmv7zefqkvjgusdghmwqvhqduthu2fk2a3g8sawqajcfhc
+
+
 creation_rules:
   - path_regex: ^secrets/latte\.yaml$
     key_groups:
       - age:
           - *isaac
           - *latte
+
+  - path_regex: ^secrets/matcha\.yaml$
+    key_groups:
+      - age:
+          - *isaac
+          - *matcha
