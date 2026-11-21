@@ -3,6 +3,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
+import qs.settings
 
 Singleton {
 	id: root
@@ -63,16 +64,17 @@ Singleton {
 	}
 
 	// ── Semantic roles (widgets use these, never raw palette names) ─
-	readonly property color barBg:       wall.background
-	readonly property color islandBg:    wall.background
+	function tinted(c, k) { return Qt.tint(c, Qt.alpha(wall.primary, k * Settings.tintStrength)) }
+
+	readonly property color islandBg:    tinted(wall.background, 1)
 	readonly property color fg:          wall.onSurface
 	readonly property color fgMuted:     wall.outline
 	readonly property color fgOnAccent:  wall.onPrimary
 	readonly property color accent:      wall.primary
-	readonly property color chipBg:      wall.surfaceContainerHigh
-	readonly property color chipBgHover: wall.surfaceContainerHighest
-	readonly property color popupBg:     wall.surfaceContainer
-	readonly property color border:      wall.outlineVariant
+	readonly property color chipBg:      tinted(wall.surfaceContainerHigh, 1.2)
+	readonly property color chipBgHover: tinted(wall.surfaceContainerHighest, 1.5)
+	readonly property color popupBg:     tinted(wall.background, 1)
+	readonly property color border:      tinted(wall.outlineVariant, 2)
 	// status colours stay fixed so they mean the same on every wallpaper
 	readonly property color good:        green
 	readonly property color warn:        peach

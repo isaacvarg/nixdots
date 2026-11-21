@@ -13,4 +13,6 @@ Singleton {
 
 	readonly property int islandGap: 8
 	readonly property int edgeMargin: 8
+
+	readonly property real tintStrength: 0.12
 }
