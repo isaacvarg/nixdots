@@ -2,6 +2,7 @@ import Quickshell
 import QtQuick
 import qs.bar
 import qs.launcher
+import qs.notifications
 
 Scope {
 	Variants {
@@ -12,4 +13,5 @@ Scope {
 	}
 
 	Launcher {}
+	Toasts {}
 }

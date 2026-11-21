@@ -84,6 +84,7 @@ PanelWindow {
 			BluetoothWidget {}
 			Volume {}
 			Battery {}
+			NotificationsWidget {}
 		}
 	}
 }

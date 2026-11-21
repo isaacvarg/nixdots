@@ -1,6 +1,8 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
+	home.packages = [ pkgs.libnotify ];
+
 	programs.quickshell = {
 		enable = true;
 		systemd.enable = true;

@@ -23,4 +23,8 @@ Singleton {
 	readonly property string launcherLayout: "list"
 	readonly property string launcherImage: "wallpaper"
 	readonly property string launcherImagePath: ""
+
+	// Toasts: ms on screen when app gives no timeout; critical ones stay
+	readonly property int notifTimeout: 5000
+	readonly property int notifMaxPopups: 5
 }
