@@ -9,6 +9,7 @@ PopupWindow {
 	default property alias content: column.data
 	property int cardWidth: Theme.popupWidth
 
+	grabFocus: true
 	anchor.item: anchorItem
 	anchor.edges: Edges.Bottom
 	anchor.gravity: Edges.Bottom
