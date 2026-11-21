@@ -12,7 +12,16 @@
     defaultSession = "plasma-bigscreen-wayland";
   };
 
-  environment.systemPackages = [ pkgs.kdePackages.plasma-bigscreen ];
+  # plasma-bigscreen builds against kdeconnect-kde and qtwebengine but doesn't
+  # install them, so the home screen can't load their QML modules and stays
+  # blank. The kdeconnect module also opens its firewall ports, which lets a
+  # phone work as the remote.
+  programs.kdeconnect.enable = true;
+
+  environment.systemPackages = [
+    pkgs.kdePackages.plasma-bigscreen
+    pkgs.kdePackages.qtwebengine
+  ];
 
   environment.etc."xdg/kscreenlockerrc".text = ''
     [Daemon]
