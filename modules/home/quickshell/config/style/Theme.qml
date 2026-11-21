@@ -104,6 +104,10 @@ Singleton {
 	readonly property int spacingSmall: 6
 	readonly property int popupGap: 6
 	readonly property int popupWidth: 280
+	readonly property int launcherWidth: 560
+	readonly property int launcherRowHeight: 40
+	readonly property int launcherRows: 8
+	readonly property int launcherIconSize: 26
 
 	// ── Motion ──────────────────────────────────────────────
 	readonly property int animDuration: 150

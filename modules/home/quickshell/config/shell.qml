@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import qs.bar
+import qs.launcher
 
 Scope {
 	Variants {
@@ -9,4 +10,6 @@ Scope {
 			Bar {}
 		}
 	}
+
+	Launcher {}
 }

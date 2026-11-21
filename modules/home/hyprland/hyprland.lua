@@ -26,7 +26,7 @@ hl.config({
 -- programs
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + M", hl.dsp.exit())
-hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("hyprlauncher"))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("screenshot"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("skwd-wall-v2"))
 
