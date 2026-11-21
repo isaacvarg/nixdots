@@ -16,6 +16,7 @@ Row {
 
 		delegate: Chip {
 			required property HyprlandWorkspace modelData
+			flat: true
 
 			visible: modelData.id > 0 && modelData.monitor?.name === root.screen?.name
 			active: modelData.focused

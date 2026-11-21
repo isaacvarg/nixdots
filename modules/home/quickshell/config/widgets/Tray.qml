@@ -6,6 +6,7 @@ import qs.style
 
 Chip {
 	id: root
+	flat: true
 	visible: SystemTray.items.values.length > 0
 	interactive: false
 

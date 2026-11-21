@@ -6,6 +6,8 @@ Rectangle {
 	default property alias content: row.data
 	property bool active: false
 	property bool interactive: true
+	// No resting background; used for chips that sit on an island.
+	property bool flat: false
 	property int padding: 8
 	property color activeColor: Theme.accent
 	property alias acceptedButtons: mouse.acceptedButtons
@@ -16,9 +18,10 @@ Rectangle {
 
 	implicitWidth: row.implicitWidth + padding * 2
 	implicitHeight: Theme.chipHeight
-	radius: Theme.radius
+	radius: flat ? height / 2 : Theme.radius
 	color: active ? activeColor
 		: (interactive && hovered) ? Theme.chipBgHover
+		: flat ? "transparent"
 		: Theme.chipBg
 
 	Behavior on color { ColorAnimation { duration: Theme.animDuration } }

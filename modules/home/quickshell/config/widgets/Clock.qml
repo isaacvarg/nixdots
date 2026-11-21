@@ -4,6 +4,7 @@ import qs.style
 
 Chip {
 	interactive: false
+	flat: true
 
 	SystemClock { id: clock; precision: SystemClock.Minutes }
 

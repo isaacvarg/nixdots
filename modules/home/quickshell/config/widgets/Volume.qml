@@ -4,6 +4,7 @@ import qs.style
 
 Chip {
 	id: root
+	flat: true
 	readonly property PwNode sink: Pipewire.defaultAudioSink
 	readonly property bool ready: sink?.audio !== undefined && sink?.audio !== null
 	readonly property real volume: ready ? sink.audio.volume : 0

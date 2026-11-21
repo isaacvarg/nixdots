@@ -10,6 +10,7 @@ import qs.style
 
 Chip {
 	id: root
+	flat: true
 	readonly property var bat: UPower.displayDevice
 	readonly property real pct: bat.percentage
 	readonly property bool charging: bat.state === UPowerDeviceState.Charging

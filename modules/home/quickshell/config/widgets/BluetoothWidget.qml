@@ -5,6 +5,7 @@ import qs.style
 
 Chip {
 	id: root
+	flat: true
 	readonly property BluetoothAdapter adapter: Bluetooth.defaultAdapter
 	readonly property bool powered: adapter?.enabled ?? false
 	readonly property var connected: Bluetooth.devices.values.filter(d => d.connected)

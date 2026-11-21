@@ -64,6 +64,7 @@ Singleton {
 
 	// ── Semantic roles (widgets use these, never raw palette names) ─
 	readonly property color barBg:       wall.background
+	readonly property color islandBg:    wall.background
 	readonly property color fg:          wall.onSurface
 	readonly property color fgMuted:     wall.outline
 	readonly property color fgOnAccent:  wall.onPrimary
@@ -85,7 +86,13 @@ Singleton {
 	readonly property int iconSize: 15
 
 	// ── Shape & spacing ─────────────────────────────────────
-	readonly property int barHeight: 32
+	readonly property int barHeight: 36      // window height, blob is flush with it
+	readonly property int islandHeight: 28   // floating side capsules
+	readonly property int islandPadding: 3
+	readonly property int islandSpacing: 6   // between islands on one side
+	readonly property int blobPadding: 14    // inside the centre blob, left/right
+	readonly property int blobRadius: 14     // bottom corners
+	readonly property int earRadius: 10      // concave flare into the top edge
 	readonly property int chipHeight: 22
 	readonly property int listItemHeight: 30
 	readonly property int radius: 6
