@@ -20,10 +20,10 @@ ListView {
 	model: results
 	clip: true
 	highlightMoveDuration: Theme.animDuration
+	highlightResizeDuration: 0
 	boundsBehavior: Flickable.StopAtBounds
 
 	highlight: Rectangle {
-		width: list.width
 		radius: Theme.radius
 		color: Theme.chipBg
 	}
