@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import qs.settings
 import qs.style
@@ -32,6 +33,11 @@ PanelWindow {
 	// Merged: the blob grows equally both ways so the clock stays centred.
 	readonly property real sideWidth: Math.max(leftGroup.width, rightGroup.width)
 	readonly property real clockWidth: clock.width + Theme.blobPadding * 2
+
+	IdleInhibitor {
+		window: root
+		enabled: Caffeine.on
+	}
 
 	Blob {
 		id: blob
@@ -81,6 +87,7 @@ PanelWindow {
 
 		Island {
 			bare: root.merged
+			CaffeineWidget {}
 			BluetoothWidget {}
 			Volume {}
 			Battery {}
