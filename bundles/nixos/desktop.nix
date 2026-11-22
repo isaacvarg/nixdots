@@ -11,5 +11,6 @@
     ../../modules/nixos/bluetooth.nix
     ../../modules/nixos/strata.nix
     ../../modules/nixos/skwd-wall.nix
+    ../../modules/nixos/obs.nix
   ];
 }
