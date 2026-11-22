@@ -18,7 +18,7 @@
 
     shellAliases = {
       ll = "ls -la";
-      ff = "clear & fastfetch";
+      ff = "clear; fastfetch";
     };
   };
 

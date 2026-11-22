@@ -45,16 +45,16 @@ in
         "[󱞪](fg:iris) "
       ];
 
-      palette = "rose-pine-moon";
+      palette = "terminal";
 
-      palettes.rose-pine-moon = {
-        overlay = "#393552";
-        love = "#eb6f92";
-        gold = "#f6c177";
-        rose = "#ea9a97";
-        pine = "#3e8fb0";
-        foam = "#9ccfd8";
-        iris = "#c4a7e7";
+      palettes.terminal = {
+        overlay = "black";
+        love = "red";
+        gold = "yellow";
+        rose = "bright-red";
+        pine = "blue";
+        foam = "cyan";
+        iris = "purple";
       };
 
       directory = {

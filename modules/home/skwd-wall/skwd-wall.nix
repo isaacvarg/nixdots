@@ -30,6 +30,13 @@ let
       template = "${templates}/yazi-theme.toml";
       output = "~/.config/yazi/theme.toml";
     }
+    {
+      # btop.nix sets color_theme = "skwd"; SIGUSR2 reloads a running btop.
+      name = "btop";
+      template = "${templates}/btop.theme";
+      output = "~/.config/btop/themes/skwd.theme";
+      reload = "${pkgs.procps}/bin/pkill -USR2 btop || true";
+    }
   ];
 
   integrationsFile = pkgs.writeText "skwd-integrations.json" (builtins.toJSON integrations);

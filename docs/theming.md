@@ -30,6 +30,9 @@ Apps themed today:
 | quickshell | `~/.cache/skwd-wall-v2/quickshell-colors.json` | `Theme.qml` watches the file and recolours live |
 | ghostty | `~/.cache/skwd-wall-v2/ghostty.conf` | `config-file` in `terminal.nix`; `pkill -USR2 ghostty` reloads open windows |
 | yazi | `~/.config/yazi/theme.toml` | Read the next time yazi starts |
+| btop | `~/.config/btop/themes/skwd.theme` | `color_theme = "skwd"` in `btop.nix`; `pkill -USR2 btop` reloads a running btop |
+
+Starship needs no template of its own. Its palette in `starship.nix` names ANSI colours (`black`, `red`, `blue` and so on), so it draws with ghostty's palette, which skwd renders. It follows the wallpaper in ghostty, and falls back to the terminal's own colours elsewhere.
 
 ## Adding an app
 
@@ -96,7 +99,7 @@ After the first switch, template edits need no rebuild. Save the template, pick 
 
 ### Worked example: btop
 
-btop isn't in the repo yet. To add it themed:
+btop is set up this way (`modules/home/btop.nix`). The steps were:
 
 1. Copy the stock template as in step 1.
 2. Add the `btop` entry from step 2.
