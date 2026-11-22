@@ -117,6 +117,10 @@ Singleton {
 	readonly property int notifWidth: 360
 	readonly property int notifImageSize: 40
 	readonly property int notifHistoryHeight: 480
+	readonly property int lockClockSize: 120
+	readonly property int lockInputWidth: 320
+	readonly property int lockInputHeight: 48
+	readonly property int lockBlurMax: 64
 
 	// ── Motion ──────────────────────────────────────────────
 	readonly property int animDuration: 150

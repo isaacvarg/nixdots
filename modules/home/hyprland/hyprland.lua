@@ -15,6 +15,7 @@ hl.config({
 
   misc = {
     focus_on_activate = true,
+    allow_session_lock_restore = true,
   },
 
   decoration = {
@@ -29,6 +30,7 @@ hl.bind(mainMod .. " + M", hl.dsp.exit())
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("screenshot"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("skwd-wall-v2"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("lock-screen"))
 
 -- window manipulation
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
