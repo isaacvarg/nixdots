@@ -75,6 +75,7 @@ Singleton {
 	readonly property color chipBgHover: tinted(wall.surfaceContainerHighest, 1.5)
 	readonly property color popupBg:     tinted(wall.background, 1)
 	readonly property color border:      tinted(wall.outlineVariant, 2)
+	readonly property color powerScrim:  Qt.alpha(wall.background, 0.4)
 	// status colours stay fixed so they mean the same on every wallpaper
 	readonly property color good:        green
 	readonly property color warn:        peach
@@ -121,6 +122,8 @@ Singleton {
 	readonly property int lockInputWidth: 320
 	readonly property int lockInputHeight: 48
 	readonly property int lockBlurMax: 64
+	readonly property int powerTileSize: 110
+	readonly property int powerIconSize: 34
 
 	// ── Motion ──────────────────────────────────────────────
 	readonly property int animDuration: 150

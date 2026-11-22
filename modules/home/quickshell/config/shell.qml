@@ -3,6 +3,7 @@ import QtQuick
 import qs.bar
 import qs.launcher
 import qs.notifications
+import qs.powermenu
 
 Scope {
 	Variants {
@@ -14,4 +15,5 @@ Scope {
 
 	Launcher {}
 	Toasts {}
+	PowerMenu {}
 }

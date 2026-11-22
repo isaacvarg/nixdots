@@ -31,6 +31,7 @@ hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("qs ipc call launcher toggle"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("screenshot"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("skwd-wall-v2"))
 hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("lock-screen"))
+hl.bind(mainMod .. " + SHIFT + X", hl.dsp.exec_cmd("qs ipc call powermenu toggle"))
 
 -- window manipulation
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())

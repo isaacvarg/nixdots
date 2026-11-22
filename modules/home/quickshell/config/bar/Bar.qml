@@ -93,5 +93,10 @@ PanelWindow {
 			Battery {}
 			NotificationsWidget {}
 		}
+
+		Island {
+			bare: root.merged
+			PowerWidget {}
+		}
 	}
 }
