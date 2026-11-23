@@ -22,8 +22,6 @@
       { appId = "ai.storyteller.artcraft-launcher"; origin = "artcraft-oci"; }
     ];
 
-    uninstallUnmanaged = true;
-
     update.auto = {
       enable = true;
       onCalendar = "weekly";
