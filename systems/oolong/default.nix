@@ -25,6 +25,10 @@
     "2606:4700:4700::1001"
   ];
 
+  virtualisation.docker.daemon.settings = {
+    insecure-registries = [ "192.168.12.227:5200" ];
+  };
+
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
