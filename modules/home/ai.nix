@@ -10,7 +10,8 @@ let
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/claude-desktop \
-        --set GIT_SSH_COMMAND "ssh -F ~/.ssh/config"
+        --set GIT_SSH_COMMAND "ssh -F ~/.ssh/config" \
+        --add-flags "--password-store=gnome-libsecret"
     '';
   };
 in
