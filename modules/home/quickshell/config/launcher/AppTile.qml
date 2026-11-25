@@ -5,10 +5,12 @@ Item {
 	id: tile
 	required property var modelData
 	required property int index
-	readonly property bool hovered: hover.hovered
 	signal clicked()
+	signal pointerMoved(point pos)
 
-	HoverHandler { id: hover }
+	HoverHandler {
+		onPointChanged: if (hovered) tile.pointerMoved(point.scenePosition)
+	}
 
 	MouseArea {
 		anchors.fill: parent

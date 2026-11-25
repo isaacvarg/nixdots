@@ -6,12 +6,14 @@ Item {
 	id: row
 	required property var modelData
 	required property int index
-	readonly property bool hovered: hover.hovered
 	signal clicked()
+	signal pointerMoved(point pos)
 
 	implicitHeight: Theme.launcherRowHeight
 
-	HoverHandler { id: hover }
+	HoverHandler {
+		onPointChanged: if (hovered) row.pointerMoved(point.scenePosition)
+	}
 
 	MouseArea {
 		anchors.fill: parent
