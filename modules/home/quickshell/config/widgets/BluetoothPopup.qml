@@ -51,7 +51,8 @@ PopupCard {
 		delegate: ListItem {
 			id: row
 			required property BluetoothDevice modelData
-			visible: popup.powered && (modelData.paired || modelData.pairing || popup.scanning)
+			visible: popup.powered && (modelData.paired || modelData.pairing || modelData.connected || popup.scanning)
+			property bool pairAfterDisconnect: false
 
 			readonly property bool busy: modelData.state === BluetoothDeviceState.Connecting
 				|| modelData.state === BluetoothDeviceState.Disconnecting
@@ -62,7 +63,11 @@ PopupCard {
 				else {
 					// Inquiry scans interfere with paging on many controllers (→ "Page Timeout").
 					if (popup.scanning) popup.adapter.discovering = false
-					if (!modelData.paired) modelData.pair()
+					if (!modelData.paired && modelData.connected) {
+						pairAfterDisconnect = true
+						modelData.disconnect()
+					}
+					else if (!modelData.paired) modelData.pair()
 					else if (modelData.connected) modelData.disconnect()
 					else modelData.connect()
 				}
@@ -75,6 +80,11 @@ PopupCard {
 					if (!row.modelData.paired) return
 					row.modelData.trusted = true
 					row.modelData.connect()
+				}
+				function onConnectedChanged() {
+					if (row.modelData.connected || !row.pairAfterDisconnect) return
+					row.pairAfterDisconnect = false
+					row.modelData.pair()
 				}
 			}
 
@@ -95,8 +105,8 @@ PopupCard {
 				muted: true
 				text: row.modelData.pairing ? "pairing… (cancel)"
 					: row.busy ? "…"
-					: row.modelData.connected ? "󰂱"
 					: !row.modelData.paired ? "pair"
+					: row.modelData.connected ? "󰂱"
 					: ""
 			}
 		}
