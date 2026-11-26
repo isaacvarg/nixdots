@@ -1,6 +1,17 @@
 local mainMod = "SUPER"
 local terminal = "ghostty"
 
+local function themeBackground()
+  local cache = os.getenv("XDG_CACHE_HOME") or (os.getenv("HOME") .. "/.cache")
+  local hex = "1e2030"
+  local f = io.open(cache .. "/skwd-wall-v2/quickshell-colors.json", "r")
+  if f then
+    hex = f:read("a"):match('"background"%s*:%s*"#(%x%x%x%x%x%x)"') or hex
+    f:close()
+  end
+  return 0xFF000000 | tonumber(hex, 16)
+end
+
 hl.config({
   general = {
     gaps_in = 5,
@@ -16,6 +27,10 @@ hl.config({
   misc = {
     focus_on_activate = true,
     allow_session_lock_restore = true,
+    disable_hyprland_logo = true,
+    disable_splash_rendering = true,
+    force_default_wallpaper = 0,
+    background_color = themeBackground(),
   },
 
   decoration = {
