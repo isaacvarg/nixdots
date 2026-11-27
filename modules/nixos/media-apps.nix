@@ -5,6 +5,7 @@
     vacuum-tube
     spotify
     jellyfin-desktop
+    mpv
   ];
 
   # spotify connectinglets phones find this machine and cast to it

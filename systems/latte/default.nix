@@ -9,6 +9,7 @@
       ../../bundles/nixos/gaming.nix
       ../../modules/nixos/sops.nix
       ../../modules/nixos/nas.nix
+      ../../bundles/nixos/entertainment.nix
    ];
 
   my.nas = {
