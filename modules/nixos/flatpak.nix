@@ -23,6 +23,6 @@
       onCalendar = "weekly";
     };
 
-    packages = [ ];
+    packages = [ "com.todoist.Todoist" ];
   };
 }
