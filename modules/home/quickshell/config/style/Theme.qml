@@ -96,6 +96,9 @@ Singleton {
 	readonly property int blobPadding: 14    // inside the centre blob, left/right
 	readonly property int blobRadius: 14     // bottom corners
 	readonly property int earRadius: 10      // concave flare into the top edge
+	readonly property int blobRadiusOpen: 26
+	readonly property int panelPadding: 18
+	readonly property int calendarCellSize: 38
 	readonly property int chipHeight: 22
 	readonly property int listItemHeight: 30
 	readonly property int radius: 6

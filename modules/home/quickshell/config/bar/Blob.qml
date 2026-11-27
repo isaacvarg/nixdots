@@ -16,8 +16,9 @@ Item {
 	default property alias content: body.data
 	property real bodyWidth: 120
 	property color color: Theme.islandBg
+	property real radius: Theme.blobRadius
 	readonly property real ear: Theme.earRadius
-	readonly property real corner: Math.min(Theme.blobRadius, height / 2)
+	readonly property real corner: Math.min(radius, height / 2, bodyWidth / 2)
 
 	width: bodyWidth + ear * 2
 	height: Theme.barHeight
@@ -55,5 +56,6 @@ Item {
 		x: root.ear
 		width: root.bodyWidth
 		height: root.height
+		clip: true
 	}
 }
