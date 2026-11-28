@@ -13,6 +13,15 @@ Secrets live encrypted in `secrets/<host>.yaml`. Each file is encrypted to two a
 SOPS_AGE_KEY=$(op read "op://Private/sops-age-key/password") sops secrets/latte.yaml
 ```
 
+## Todoist token
+
+The quickshell Todoist widget reads `todoist.api-token` (Todoist → Settings → Integrations → Developer). `modules/nixos/todoist.nix` decrypts it to `/run/secrets/todoist/api-token`, owned by isaac with mode 0400. Enable it per host with `my.todoist.sopsFile`. On hosts without the token, the widget hides itself.
+
+```yaml
+todoist:
+  api-token: ...
+```
+
 ## One-time setup
 
 Run steps 1 and 2 with `nix shell nixpkgs#age nixpkgs#sops` if the tools aren't installed yet.

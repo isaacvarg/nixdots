@@ -34,13 +34,13 @@ PanelWindow {
 	readonly property real gap: Settings.islandGap
 	readonly property real islandY: (Theme.barHeight - Theme.islandHeight) / 2
 
-	// Merged: the blob grows equally both ways so the clock stays centred.
+	// Merged: the blob grows equally both ways so the centre row stays centred.
 	readonly property real sideWidth: Math.max(leftGroup.width, rightGroup.width)
-	readonly property real clockWidth: clock.width + Theme.blobPadding * 2
+	readonly property real centreWidth: centreRow.width + Theme.blobPadding * 2
 
 	readonly property real closedBody: merged
-		? clockWidth + (gap + sideWidth) * 2
-		: clockWidth
+		? centreWidth + (gap + sideWidth) * 2
+		: centreWidth
 	readonly property real closedX: centre - closedBody / 2 - Theme.earRadius
 	readonly property real openBody: Math.max(closedBody, calendar.width + Theme.panelPadding * 2)
 	readonly property real panelHeight: calendar.height + Theme.panelPadding + 4
@@ -96,11 +96,13 @@ PanelWindow {
 			NumberAnimation { duration: Theme.animDuration * 2; easing.type: Easing.OutCubic }
 		}
 
-		Clock {
-			id: clock
+		Row {
+			id: centreRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			y: (Theme.barHeight - height) / 2
-			onClicked: root.setCalendar(!root.calendarOpen)
+
+			Clock { onClicked: root.setCalendar(!root.calendarOpen) }
+			TodoistWidget {}
 		}
 
 		Calendar {
@@ -119,7 +121,7 @@ PanelWindow {
 		y: root.islandY
 		spacing: Theme.islandSpacing
 		x: root.layout === "spread" ? Settings.edgeMargin
-			: root.merged ? root.centre - clock.width / 2 - root.gap - width
+			: root.merged ? root.centre - centreRow.width / 2 - root.gap - width
 			: root.closedX + blob.ear - root.gap - width
 
 		Behavior on x { NumberAnimation { duration: Theme.animDuration * 2; easing.type: Easing.OutCubic } }
@@ -135,7 +137,7 @@ PanelWindow {
 		y: root.islandY
 		spacing: Theme.islandSpacing
 		x: root.layout === "spread" ? root.width - Settings.edgeMargin - width
-			: root.merged ? root.centre + clock.width / 2 + root.gap
+			: root.merged ? root.centre + centreRow.width / 2 + root.gap
 			: root.closedX + blob.ear + root.closedBody + root.gap
 
 		Behavior on x { NumberAnimation { duration: Theme.animDuration * 2; easing.type: Easing.OutCubic } }

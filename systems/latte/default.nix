@@ -9,6 +9,7 @@
       ../../bundles/nixos/gaming.nix
       ../../modules/nixos/sops.nix
       ../../modules/nixos/nas.nix
+      ../../modules/nixos/todoist.nix
       ../../bundles/nixos/entertainment.nix
    ];
 
@@ -29,6 +30,8 @@
     };
   };
 
+
+  my.todoist.sopsFile = ../../secrets/latte.yaml;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

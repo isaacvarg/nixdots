@@ -35,4 +35,9 @@ Singleton {
 	readonly property real lockDim: 0.1
 	readonly property real lockDimTyping: 0.35
 	readonly property int lockIdleTimeout: 10000
+
+	// Todoist: token from sops-nix (modules/nixos/todoist.nix); widget hides if missing. Refresh in ms
+	readonly property string todoistTokenFile: "/run/secrets/todoist/api-token"
+	readonly property int todoistRefresh: 300000
+	readonly property string todoistApp: "com.todoist.Todoist"
 }

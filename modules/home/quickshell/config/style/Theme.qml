@@ -118,6 +118,8 @@ Singleton {
 	readonly property int launcherGridRows: 3
 	readonly property int launcherTileHeight: 96
 	readonly property int launcherTileIconSize: 40
+	readonly property int todoistWidth: 360
+	readonly property int todoistListHeight: 420
 	readonly property int notifWidth: 360
 	readonly property int notifImageSize: 40
 	readonly property int notifHistoryHeight: 480
